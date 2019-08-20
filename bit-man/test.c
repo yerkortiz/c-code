@@ -11,7 +11,7 @@ unsigned int countBitSet1(int n)
 {
     return (n == 0)? 0 : 1 + countBitSet1(n & (n -1));
 }
-/* function from gcc compiler, it takes O(1)*/
+/* function from gcc compiler, it takes O(n) but the constant it's really small*/
 unsigned int lookUpBitSet(int n)
 {
     return __builtin_popcount(n);
