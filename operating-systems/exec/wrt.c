@@ -15,7 +15,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <string.h>
-#define MAX_STR (1 << 6) // 64
+#define MAX_STR (1 << 4) // 16
 int main()
 {
     int outfd = open("letter.txt", O_CREAT|O_WRONLY|O_APPEND, 0644);
@@ -24,7 +24,7 @@ int main()
         exit(1);
     }
     char str_input[MAX_STR];
-    printf("ESCRIBA UNA ORACIÓN, NO PUEDE TENER MAS DE 64 CHARS, TERMINE CON SALTO DE LINEA\n");
+    printf("ESCRIBA UNA PALABRA, NO PUEDE TENER MAS DE 16 CHARS, TERMINE CON SALTO DE LINEA\n");
     scanf("%s", str_input);
     str_input[strlen(str_input) + 1] = '\0';
     str_input[strlen(str_input)] = '\n';

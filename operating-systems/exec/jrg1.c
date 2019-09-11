@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
     int answer;
     printf("%s\n", line);
     printf("ESCOJA UNA OPCIÓN(presione el número):\n");
-    printf("1] Escribir una oración en un archivo llamado letter.txt\n");
+    printf("1] Escribir una palabra en un archivo llamado letter.txt\n");
     printf("2] Imprimir el contenido del archivo letter.txt\n");
     printf("3] Presione cualquier otra tecla para finalizar este programa\n");
     scanf("%d", &answer);
@@ -52,7 +52,8 @@ int main(int argc, char *argv[])
     } else {
         printf("PROGRAMA FINALIZADO\n");
         break;
-        } 
+        }
+    wait(NULL); 
     }
     return 0;
 }
