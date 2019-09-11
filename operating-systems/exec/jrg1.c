@@ -7,28 +7,31 @@
 #include <unistd.h>
 #include <string.h>
 #define OR ||
+#define LINE_SIZE (1 << 5)
 int main(int argc, char *argv[])
 {
-    char line[16];
-    memset(line,'-',6);
+    char line[LINE_SIZE];
+    memset(line,'_', LINE_SIZE - 1);
     while(1) {
     int answer;
+    printf("%s\n", line);
     printf("ESCOJA UNA OPCIÓN(presione el número):\n");
     printf("1] Escribir una oración en un archivo llamado letter.txt\n");
     printf("2] Imprimir el contenido del archivo letter.txt\n");
     printf("3] Presione cualquier otra tecla para finalizar este programa\n");
     scanf("%d", &answer);
+    printf("%s\n", line);
     if(answer == 1){
         int pid = fork();
         if(pid < 0) {
             perror("FORK ERROR\n");
             exit(1);
         } else if(pid == 0) {
+            printf("%s\n", line);
             system("gcc -o a.out wrt.c");
             execl("a.out", "a.out", NULL);
         } else {
             wait(NULL);
-            printf("%s\n", line);
         }
     } else if(answer == 2){
         int pid = fork();
@@ -36,6 +39,7 @@ int main(int argc, char *argv[])
             perror("FORK ERROR\n");
             exit(1);
         } else if(pid == 0) {
+            printf("%s\n", line);
             printf("IMPRIMIENDO CONTENIDOS DE letter.txt:\n");
             char *myargs[3];
             myargs[0] = strdup("cat"); 
@@ -44,9 +48,9 @@ int main(int argc, char *argv[])
             execvp(myargs[0], myargs);
         } else {
             wait(NULL);
-            printf("%s\n", line);
         }
     } else {
+        printf("PROGRAMA FINALIZADO\n");
         break;
         } 
     }
