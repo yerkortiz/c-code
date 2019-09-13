@@ -3,7 +3,7 @@
 */
 #include <stdio.h>
 #include <string.h>
-#define MAX_SIZE ((1 << 3) | 1)
+#define MAX_SIZE ((1 << 4) | 1)
 #define NOT !
 #define RIGHT(i) (i << 1)
 #define LEFT(i) ((i << 1) | 1)
@@ -38,10 +38,10 @@ void fillString(char *s, char value, int size)
 }
 void asciiTree(void)
 {
-    int x_size = (MAX_SIZE << 1);
-    char x[x_size];
-    fillString(x, '_', x_size);
     int height = logTwo(MAX_SIZE);
+    int x_size = (MAX_SIZE << 1) | 1;
+    char x[x_size];
+    fillString(x, ' ', x_size);
     for(int i = 0, count = 1; i < height; ++i) {
         for(int j = 1; j <= (1 << i); ++j, ++count) {
             printf("%s", x);
@@ -49,7 +49,7 @@ void asciiTree(void)
         }
         printf("%s", x);
         x_size >>= 1;
-        x[(x_size + (1 << (i|1))) | 1] = '\0';
+        x[x_size + 1] = '\0';
         printf("\n");
     }
 
