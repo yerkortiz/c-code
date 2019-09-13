@@ -28,8 +28,8 @@ int main(int argc, char *argv[])
             exit(1);
         } else if(pid == 0) {
             printf("%s\n", line);
-            system("gcc -o a.out wrt.c");
-            execl("a.out", "a.out", NULL);
+            system("gcc -o wrt.out wrt.c");
+            execl("wrt.out", NULL);
         } else {
             wait(NULL);
         }
