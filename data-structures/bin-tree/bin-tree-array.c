@@ -41,18 +41,16 @@ void asciiTree(void)
     int height = logTwo(MAX_SIZE);
     int x_size = (MAX_SIZE << 1) | 1;
     char x[x_size];
-    fillString(x, ' ', x_size);
+    fillString(x, '_', x_size);
     for(int i = 0, count = 1; i < height; ++i) {
         for(int j = 1; j <= (1 << i); ++j, ++count) {
             printf("%s", x);
             printf("%d", tree[count]);
         }
-        printf("%s", x);
         x_size >>= 1;
         x[x_size + 1] = '\0';
         printf("\n");
     }
-
 }
 int main()
 {
