@@ -19,6 +19,5 @@ void shellsort(int v[], int n) {
 int main() {
     int v[] = {5, 4, 8, 1};
     shellsort(v, 4);
-    return 0;
-    
+    return 0;   
 }
