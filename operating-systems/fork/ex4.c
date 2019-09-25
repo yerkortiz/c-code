@@ -1,4 +1,6 @@
-/* JEROGLIFICO 4 */
+/*
+* Lista de procesos
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>

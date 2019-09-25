@@ -1,4 +1,7 @@
-/* JEROGLIFICO 1 */
+/*
+* Ejemplo 3
+* getpid, getppid
+*/
 #include <stdio.h> 
 #include <sys/types.h> 
 #include <unistd.h> 
