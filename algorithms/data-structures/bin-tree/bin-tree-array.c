@@ -51,13 +51,56 @@ void asciiTree(void)
         x[x_size + 1] = '\0';
         printf("\n");
     }
+       /*
+    for(int i = 0, j = 0; i < height; ++i, j ^= 1) {
+        if(NOT j) {
+            x[(x_size >> 1) - i] = 'a';
+            x[(x_size >> 1) + i] = 'a';
+            printf("%s\n", x);
+            x[(x_size >> 1) - i] = '_';
+            x[(x_size >> 1) + i] = '_';
+            continue;
+        }
+        x[(x_size >> 1) - i] = '/';
+        x[(x_size >> 1) + i] = '\\';
+        printf("%s\n", x);
+        x[(x_size >> 1) - i] = '_';
+        x[(x_size >> 1) + i] = '_';
+    }
+    */
+}
+void asciiPrint(int delta, int height, int pos)
+{
+    if(height <= 0) return;
+    int x_size = (MAX_SIZE << 1) | 1;
+    char x[x_size];
+    fillString(x, '_', x_size); // lo mejor es tenerlo en referencia
+    x[(pos) - delta] = '/';
+    x[(pos) + delta] = '\\';
+    printf("%s\n", x);
+    x[(pos) - delta] = '_';
+    x[(pos) + delta] = '_';
+    ++delta;
+    x[(pos) - delta] = 'a';
+    x[(pos) + delta] = 'a';
+    ++delta;
+    printf("%s\n", x);
+    //asciiPrint(delta, height - 1, pos + delta);
+    //asciiPrint(delta, height - 1, pos - delta);
 }
 int main()
-{
+{   /*
     int arr[] = {10, 6, 12, 7, 4, 11, 13};
     for(int i = 0; i < 7; ++i)
         insert(arr[i]);
     //printTree();
     asciiTree();
+    */
+    int x_size = (MAX_SIZE << 1) | 1;
+    char x[x_size];
+    fillString(x, '_', x_size);
+    x[(x_size >> 1)] = 'a';
+    printf("%s\n", x);
+    asciiPrint(1, 2, x_size >> 1);
     return 0;
 }
