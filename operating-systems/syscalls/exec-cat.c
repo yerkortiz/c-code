@@ -1,6 +1,5 @@
 /*
-*EJEMPLO 2
-*USO DE EXEC
+ * USO DE EXEC PARA USAR COMANDOS DE LA SHELL
 */
 #include <stdio.h>
 #include <stdlib.h>
