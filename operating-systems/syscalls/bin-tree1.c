@@ -10,7 +10,7 @@
 #define WAIT_TREE for(; wait(NULL) > 0; )
 #define NOT !
 #define OR ||
-#define MAX_HEIGHT 3
+#define MAX_HEIGHT 2
 #define EXIT_PROGRAM return 0
 
 void processTree(int current_height)
@@ -26,7 +26,6 @@ void processTree(int current_height)
 }
 int main(void)
 {
-    printf("ROOT PID %d\n", getpid());
     processTree(0);
     EXIT_PROGRAM;
 }

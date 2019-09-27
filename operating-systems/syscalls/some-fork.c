@@ -15,14 +15,12 @@ void processInfo(void)
 int main()
 {
     printf("PROGRAMA INICIALIZADO\n");
-    /* N forks */
-    /*
+    /* N forks */    
     fork();
     fork();
     fork();
     processInfo();
     WAIT_TREE;
-    */
     /* if(not fork or not fork) */
     /*
     processInfo();
@@ -43,6 +41,5 @@ int main()
     processInfo();
     WAIT_TREE;
     */
-    printf("PROGRAMA TERMINADO\n");
     return 0;
 }

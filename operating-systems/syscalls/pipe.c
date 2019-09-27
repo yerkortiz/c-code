@@ -1,4 +1,3 @@
-/* JEROGLIFICO 7 */
 #include<stdio.h>
 #include<unistd.h>
 #include<stdlib.h>
@@ -6,7 +5,8 @@
 void low_up(char *s)
 {
     for(; *s != '\0'; ++s)
-        if(isalpha(*s)) *s = (islower(*s)) ? toupper(*s) : tolower(*s); 
+        if(isalpha(*s)) 
+            *s = (islower(*s)) ? toupper(*s) : tolower(*s); 
 }
 int main() {
     printf("MI NOMBRE ES PIPEÑO (PID:%d)\n", getpid());

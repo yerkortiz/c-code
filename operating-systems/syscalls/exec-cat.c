@@ -18,10 +18,10 @@ int main()
         printf("HOLI, SOY UN PROCESO HIJO (PID:%d)\n", (int) getpid());
         char *myargs[3];
         myargs[0] = strdup("cat"); 
-        myargs[1] = strdup("ex1.c"); 
+        myargs[1] = strdup("bin-tree1.c"); 
         myargs[2] = NULL; 
         execvp(myargs[0], myargs); 
-        printf("HICE CAT DEL ARCHIVO ex1.c\n");
+        printf("HICE CAT DEL ARCHIVO bin-tree1.c\n");
     } else { 
         wait(NULL);
         printf("CHAO LOH VIMOH\n");

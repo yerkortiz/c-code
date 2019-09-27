@@ -31,8 +31,8 @@ int main(int argc, char* argv[])
     close(STDOUT_FILENO); 
     close(STDERR_FILENO);
     fp = fopen ("Log.txt", "w+");
-    for(int i = 0; i < 8; ++i) {
-        sleep(3);
+    for(int i = 0; i < 15; ++i) {
+        sleep(1);
         fprintf(fp, "%d\n", i);
         fflush(fp);
     }
