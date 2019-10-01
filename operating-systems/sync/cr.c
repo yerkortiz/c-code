@@ -4,6 +4,8 @@
  * DA RESULTADOS ILOGICOS.
  * PARA VER RESULTADOS, EJECUTAR EL PROGRAMA
  * CON ARG >= 20000
+ * compilar con gcc filename.c
+ * ejecutar con ./a.out n(n = ingrese el numero de iteraciones o dara segmentation fault)
 */
 #include <stdio.h>
 #include <pthread.h>
