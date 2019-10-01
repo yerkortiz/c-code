@@ -5,7 +5,7 @@
  * PARA VER RESULTADOS, EJECUTAR EL PROGRAMA
  * CON ARG >= 20000
  * compilar con gcc filename.c
- * ejecutar con ./a.out n(n = ingrese el numero de iteraciones o dara segmentation fault)
+ * ejecutar con ./a.out n(n = ingrese el numero de iteraciones)
 */
 #include <stdio.h>
 #include <pthread.h>
