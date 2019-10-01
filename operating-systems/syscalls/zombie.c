@@ -10,7 +10,6 @@ int main(void)
     pid_t child_pid = fork(); 
     if (child_pid > 0){
         system("ps -l");
-        //sleep(5);
         wait(NULL);
         /* kill(pid, SIGKILL); */
         printf("ZOMBIE EXITERMINADO\n");
