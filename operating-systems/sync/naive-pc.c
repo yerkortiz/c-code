@@ -1,7 +1,6 @@
 /*
  * EJEMPLO NO CONCURRENTE DE PRODUCTOR CONSUMIDOR
  * PERO LA GRACIA ES HACERLO CONCURRENTE 
- * 
 */
 #include <stdio.h>
 #define BUFFER_SIZE 10
@@ -23,7 +22,7 @@ void consumer(void)
     out %= BUFFER_SIZE;
     --cont;
 }
-int main()
+int main(void)
 {
     for(int i = 0; i < 2; ++i) {
         producer();
