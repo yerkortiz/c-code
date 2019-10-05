@@ -1,7 +1,8 @@
-#include <pthread.h> 
-#include <semaphore.h> 
+/*
+ * VARIACION DEL PROBLEMA DE FILOSOFOS
+ * SOLUCION NO CONCURRENTE(POR ESO NAIVE)
+*/
 #include <stdio.h> 
-#include <unistd.h>
 #include <stdlib.h>
 
 #define EXIT_PROGRAM return 0
@@ -11,9 +12,9 @@
 #define LEFT(i, j) (i + MAX_COMPUTER - j) % MAX_COMPUTER
 #define RIGHT(i, j) (i + j) % MAX_COMPUTER
 
-enum {WAITING, BORED, PLAYING} state[MAX_COMPUTER]; 
 int hand_state[MAX_COMPUTER];
 int cnt;
+int last_comp;
 void printArray(void)
 {
     int i;
@@ -24,28 +25,32 @@ void printArray(void)
 void play(void)
 {
     int i, j;
-    for(i = 0, j = 0; j < 2 * MAX_COMPUTER; i = RIGHT(i, 2), ++j) {
+    /* SOLUCION PROPUESTA EN AYUDANTIA */
+    for(i = 0, j = 0; j < 4 * MAX_COMPUTER; i = RIGHT(i, 2), ++j) {
         /* printf("COMPUTADOR %d NECESITA MANO %d Y MANO %d\n", i, RIGHT(i, 1), LEFT(i, 1)); */
         if(NOT hand_state[i] AND NOT hand_state[LEFT(i, 1)]){
-            printf("COMPUTADOR %d RECIBE SEÑAL DE MANO %d\n", i, LEFT(i, 1));
-            ++hand_state[LEFT(i, 1)];
+            printf("COMPUTADOR %d RECIBE SEÑAL DE MANO %d\n", i + 1, LEFT(i, 1));
+            hand_state[LEFT(i, 1)] = i + 1;
             printArray();
-        } else if(hand_state[LEFT(i, 1)] AND NOT hand_state[i]) {
-            printf("COMPUTADOR %d RECIBE SEÑAL DE MANO %d\n", i, i);
-            ++hand_state[i];
+        } else if(hand_state[LEFT(i, 1)] == i + 1 AND NOT hand_state[i]) {
+            printf("COMPUTADOR %d RECIBE SEÑAL DE MANO %d\n", i + 1, i);
+            hand_state[i] = i + 1;
             printArray();
+            if(NOT cnt) 
+                last_comp = i;
             ++cnt;
         } 
         if(cnt == 2) {
             printf("______________\n");
-            printf("COMPUTADOR %d JUEGA CON COMPUTADOR %d\n", i, LEFT(i, 2));
-            --hand_state[i];
-            --hand_state[LEFT(i, 1)];
-            --hand_state[RIGHT(i, 2)];
-            --hand_state[LEFT(RIGHT(i, 2), 1)];
+            printf("COMPUTADOR %d JUEGA CON COMPUTADOR %d\n", i + 1, last_comp + 1);
+            hand_state[i] = 0;
+            hand_state[LEFT(i, 1)] = 0; 
+            hand_state[last_comp] = 0;
+            hand_state[LEFT(last_comp, 1)] = 0;
             printArray();
             printf("______________\n");
             cnt = 0;
+            last_comp = 0;
         }
     }
 }
