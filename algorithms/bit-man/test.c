@@ -16,10 +16,7 @@ unsigned int lookUpBitSet(int n)
 {
     return __builtin_popcount(n);
 }
-unsigned int encode(int n)
-{
-	return (n ^ ((n << 1)|1));
-}
+
 int main()
 {
     printf("%u\n", lookUpBitSet(7));
