@@ -7,65 +7,80 @@
 #include <stdio.h> 
 #include <unistd.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define EXIT_PROGRAM return 0
 #define N 5 /* NUMERO DE FILOSOFOS */
-#define LEFT (phnum + 4) % N /* filosofo a la izquierda */
-#define RIGHT (phnum + 1) % N /* filosofo a la derecha */
-#define MAX_IT 1 /* NUMERO DE ITERACIONES */ 
-enum {THINKING, HUNGRY, EATING} state[5];
-int phil[N] = { 0, 1, 2, 3, 4 }; /* aqui se guardan los pid de los thread */
-sem_t mutex; /* para cuando comen */
-sem_t S[N]; /* para agarrar tenedores */
-void eat(int phnum) 
-{ 
-    if (state[phnum] == HUNGRY && state[LEFT] != EATING && state[RIGHT] != EATING) { 
-        state[phnum] = EATING; 
-        printf("FILOSOFO %d TOMA TENEDOR %d Y %d\n", phnum + 1, LEFT + 1, phnum + 1);   
-        printf("FILOSOFO %d ESTA LISTO PARA COMER\n", phnum + 1); 
-        sem_post(&S[phnum]); 
-    } 
-} 
-void pickup(int phnum) 
-{ 
-    sem_wait(&mutex); 
-    state[phnum] = HUNGRY; 
-    printf("FILOSOFO %d TIENE HAMBRE\n", phnum + 1); 
-    eat(phnum);   
-    sem_post(&mutex); 
-    sem_wait(&S[phnum]); 
-} 
-void putdown(int phnum) 
-{ 
-    sem_wait(&mutex); 
-    state[phnum] = THINKING; 
-    printf("FILOSOFO %d DEJA TENEDOR %d Y %d EN LA MESA\n", phnum + 1, LEFT + 1, phnum + 1); 
-    printf("FILOSOFO %d ESTA PENSANDO\n", phnum + 1); 
-    eat(LEFT); 
-    eat(RIGHT);
-    sem_post(&mutex); 
-} 
-void* philospher(void* num) 
-{ 
-    int j;
-    for(j = 0; j < MAX_IT; ++j) { 
-        printf("\n ITERACION %d \n", j);
-        int* i = num; 
-        pickup(*i); 
-        putdown(*i); 
-    } 
-} 
+#define LEFT(i) (i - 1 + N) % N
+#define RIGHT(i) (i + N) % N
+#define AND &&
+enum {THINKING, HUNGRY, EATING} state[N];
+
+sem_t *phil[N];
+sem_t *mutex;
+
+void test(int i)
+{
+    if(state[i] == HUNGRY AND state[LEFT(i)] != EATING AND state[RIGHT(i)] != EATING) {
+        state[i] = EATING;
+        sem_post(phil[i]);
+    }
+}
+void takeForks(int i)
+{
+    sem_wait(mutex);
+    state[i] = HUNGRY;
+    test(i);
+    sem_post(mutex);
+    sem_wait(phil[i]);
+}
+void putForks(int i)
+{
+    sem_wait(mutex);
+    state[i] = THINKING;
+    test(LEFT(i));
+    test(RIGHT(i));
+    sem_post(mutex);
+}
+void *philosopher(void *arg)
+{
+    int i = *((int *) arg);
+    while(1) {
+        printf("FILOSOFO %d PIENSA Y LUEGO EXISTE\n", i);
+        sleep(2);
+        takeForks(i);
+        sleep(2);
+        printf("FILOSOFO %d COME Y LUEGO PIENSA\n", i);
+        putForks(i);
+    }
+    pthread_exit(NULL);
+}
+void cat(char str[], int i)
+{
+    int end = strlen(str);
+    str[end++] = (char) i + '0';
+    str[end] = '\0';
+}
 int main(void)
 {
-    int i; pthread_t thread_id[N]; 
-    sem_init(&mutex, 0, 1);   
-    for (i = 0; i < N; i++) 
-        sem_init(&S[i], 0, 0); 
-    for (i = 0; i < N; i++) { 
-        pthread_create(&thread_id[i], NULL, philospher, &phil[i]); 
-        printf("FILOSOFO %d PENSANDO\n", i + 1); 
-    } 
-    for (i = 0; i < N; i++) 
-        pthread_join(thread_id[i], NULL); 
+    int i;
+    pthread_t ph[N];
+    char str[8] = "phil";
+    cat(str, 1);
+    for(i = 0; i < N; ++ i)
+        sem_unlink(str);
+    for(i = 0; i < N; ++ i)
+        sem_open(str, O_CREAT, 0644, 0);
+    sem_unlink("mutex");
+    sem_open("mutex", O_CREAT, 0644, 1);
+    for(i = 0; i < N; ++i) {
+        int *arg = malloc(sizeof(*arg));
+        *arg = i;
+        pthread_create(&ph[i], NULL, philosopher, arg);
+    }
+    printf("\n ______ \n");
+    sleep(1);
+    for(i = 0; i < N; ++i)
+        pthread_join(ph[i], NULL);
     EXIT_PROGRAM;
 }
