@@ -1,5 +1,6 @@
 /*
  * FILOSOFOS COMENSALES
+ * SOLUCION CONCURRENTE
 */
 #include <pthread.h> 
 #include <semaphore.h> 
