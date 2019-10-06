@@ -1,33 +1,21 @@
-/*
-  Compilar:
-    gcc -o semaforo semaforo.c -lpthread
-*/
+#include <semaphore.h>
 #include <stdio.h>
 #include <pthread.h>
-#include <semaphore.h>
-#include <unistd.h>
- 
-sem_t mutex;
- 
-void* thread(void* arg)
+#define EXIT_PROGRAM return 0
+sem_t *mutex;
+void *f(void *arg)
 {
-    //wait
-    sem_wait(&mutex);
-    printf("\n ENTER\n");
- 
-    printf("\n SECCIÓN CRÍTICA\n");
-     
-    printf("\n EXIT\n");
-    sem_post(&mutex);
+    sem_wait(mutex);
+    sem_post(mutex);
+    pthread_exit(NULL);
 }
 int main()
 {
-    sem_init(&mutex, 0, 1);
-    pthread_t t1,t2;
-    pthread_create(&t1,NULL,thread,NULL);
-    pthread_create(&t2,NULL,thread,NULL);
-    pthread_join(t1,NULL);
-    pthread_join(t2,NULL);
-    sem_destroy(&mutex);
-    return 0;
+    sem_unlink("mutex");
+    mutex = sem_open("mutex", O_CREAT, 0644, 1);
+    pthread_t fn;
+    pthread_create(&fn, NULL, f, NULL);
+    pthread_join(fn, NULL);
+    sem_unlink("mutex");
+    EXIT_PROGRAM;
 }

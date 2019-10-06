@@ -1,3 +1,6 @@
+/*
+ * PRODUCTOR CONSUMIDOR USANDO MUTEX
+*/
 #include <pthread.h>
 #include <stdio.h>
 #include <semaphore.h>
@@ -10,22 +13,6 @@ int buffer[BUFFER_SIZE];
 int front, tail, size, total;
 pthread_mutex_t mutex;
 pthread_cond_t cond_var = PTHREAD_COND_INITIALIZER;
-
-void *producer(void *arg)
-{
-    pthread_mutex_lock(&mutex);
-    pthread_cond_signal(&cond_var);
-    pthread_mutex_unlock(&mutex);
-    int produced;
-    for(produced = 0; produced < MAX_ITERATIONS; ++produced){
-        printf("PRODUCE %d\n", produced);
-        buffer[tail++] = produced;
-        tail %= BUFFER_SIZE;
-        ++size;
-    }
-    
-    pthread_exit(NULL);
-}
 void *consumer(void *arg)
 {
     pthread_mutex_lock(&mutex);
@@ -37,6 +24,20 @@ void *consumer(void *arg)
         front %= BUFFER_SIZE;
     }
     printf("DESPUES DE %d ITERACIONES CONSUMIDOR CONSUME %d\n", MAX_ITERATIONS, total);
+    pthread_exit(NULL);
+}
+void *producer(void *arg)
+{
+    int produced;
+    for(produced = 0; produced < MAX_ITERATIONS; ++produced){
+        printf("PRODUCE %d\n", produced);
+        buffer[tail++] = produced;
+        tail %= BUFFER_SIZE;
+        ++size;
+    }
+    pthread_mutex_lock(&mutex);
+    pthread_cond_signal(&cond_var);
+    pthread_mutex_unlock(&mutex);
     pthread_exit(NULL);
 }
 int main(void)
