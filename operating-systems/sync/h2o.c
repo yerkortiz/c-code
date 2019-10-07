@@ -3,8 +3,8 @@
 #include <pthread.h>
 
 #define EXIT_PROGRAM return 0
-#define N 8
-#define M 16
+#define N 4
+#define M 9
 
 sem_t *oxy_s, *hyd_s;
 pthread_mutex_t mutex;
