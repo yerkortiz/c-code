@@ -16,7 +16,7 @@ pthread_cond_t cond_var = PTHREAD_COND_INITIALIZER;
 void *consumer(void *arg)
 {
     pthread_mutex_lock(&mutex);
-    pthread_cond_wait(&cond_var,&mutex);
+    pthread_cond_wait(&cond_var, &mutex);
     pthread_mutex_unlock(&mutex);
     for(; size > 0; --size) {
         printf("CONSUME %d\n", buffer[front]);
