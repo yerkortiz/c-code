@@ -22,7 +22,6 @@ void *oxygen(void *arg)
         --oxy;
         printf("MOLECULA CRAFTEADA\n");
     } else {
-        //printf("FALTAN ATOMOS\n");
         pthread_mutex_unlock(&mutex);
         pthread_exit(NULL);
     }
@@ -42,7 +41,6 @@ void *hydrogen(void *arg)
         --oxy;
         printf("MOLECULA CRAFTEADA\n");
     } else {
-        //printf("FALTAN ATOMOS\n");
         pthread_mutex_unlock(&mutex);
         pthread_exit(NULL);
     }
@@ -54,6 +52,9 @@ int main(void)
 {
     int i;
     pthread_mutex_init(&mutex, NULL);
+    sem_unlink("oxy_s"); sem_unlink("hyd_s");
+    oxy_s = sem_open("oxy_s", O_CREAT, 0644, 0);
+    hyd_s = sem_open("hyd_s", O_CREAT, 0644, 0);
     pthread_t ox[N], hy[M];
     for(i = 0; i < N; ++i)
         pthread_create(&ox[i], NULL, oxygen, NULL);
@@ -63,5 +64,6 @@ int main(void)
         pthread_join(ox[i], NULL);
     for(i = 0; i < M;++ i)
         pthread_join(hy[i], NULL);
-    return 0;
+    sem_unlink("oxy_s"); sem_unlink("hyd_s");
+    EXIT_PROGRAM;
 }
