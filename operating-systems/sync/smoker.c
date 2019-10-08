@@ -1,3 +1,6 @@
+/*
+ * SOLUCION A PROBLEMA DE LOS FUMADORES
+*/
 #include <stdio.h>
 #include <semaphore.h>
 #include <pthread.h>

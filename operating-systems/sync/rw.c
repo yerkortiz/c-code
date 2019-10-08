@@ -15,23 +15,24 @@
 #define TRUE 1
 
 char PERGAMINO[STR_SIZE];
-sem_t *mutex, *acc;
+pthread_mutex_t mutex;
+sem_t *acc;
 int rc, i;
 
 void *reader(void *arg)
 {
     while(TRUE)
     {
-        sem_wait(mutex);
+        pthread_mutex_lock(&mutex);
         ++rc;
         if(rc) sem_wait(acc);
-        sem_post(mutex);
+        pthread_mutex_unlock(&mutex);
         printf("LEYENDO EL PERGAMINO: %s\n", PERGAMINO);
         sleep(1);
-        sem_wait(mutex);
+        pthread_mutex_lock(&mutex);
         --rc;
         if(!rc) sem_post(acc);
-        sem_post(mutex);
+        pthread_mutex_unlock(&mutex);
     }
 }
 void *writer(void *arg)
@@ -49,14 +50,14 @@ void *writer(void *arg)
 int main(void)
 {
     pthread_t rd, wt;
-    sem_unlink("mutex"); sem_unlink("acc");
-    mutex = sem_open("mutex", O_CREAT, 0644, 1);
+    pthread_mutex_init(&mutex, NULL);
+    sem_unlink("acc");
     acc = sem_open("acc", O_CREAT, 0644, 1);
     pthread_create(&rd, NULL, reader, NULL);
     sleep(2);
     pthread_create(&wt, NULL, writer, NULL);
     pthread_join(rd, NULL);
     pthread_join(wt, NULL);
-    sem_unlink("mutex"); sem_unlink("acc");
+    sem_unlink("acc");
     EXIT_PROGRAM;
 }
