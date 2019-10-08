@@ -1,3 +1,8 @@
+/*
+ * SOLUCION A LOS FILOSOFOS COMENSALES
+ * SOLUCION IMPLEMENTADA EN BASE
+ * A LO PROPUESTO EN EL LIBRO DE TANENBAUM
+*/
 #include <semaphore.h> 
 #include <stdio.h> 
 #include <unistd.h>

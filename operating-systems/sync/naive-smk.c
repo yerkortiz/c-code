@@ -1,3 +1,6 @@
+/*
+ *
+*/
 #include <stdio.h>
 #include <semaphore.h>
 #include <pthread.h>
@@ -5,10 +8,10 @@
 #include <stdlib.h>
 
 #define EXIT_PROGRAM return 0
-char *elementos[3] = {"MERCA", "PAPEL", "FUEGO"};
-void fumadorMerca(void)
+char *elementos[3] = {"MALICIA", "PAPEL", "FUEGO"};
+void fumadorMalicia(void)
 {
-    printf("FUMADOR MERCA FUMA\n");
+    printf("FUMADOR MALICIA FUMA\n");
 }
 void fumadorPapel(void)
 {
@@ -32,7 +35,7 @@ void agente(void)
         printf("FALTA %s\n", elementos[sum - 1]);
         switch(sum) {
             case 1: 
-            fumadorMerca();
+            fumadorMalicia();
             break;
             case 2: 
             fumadorPapel();

@@ -1,3 +1,6 @@
+/*
+ * problema sacado de little book of semaphores
+*/
 #include <stdio.h>
 #include <semaphore.h>
 #include <pthread.h>

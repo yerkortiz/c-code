@@ -32,19 +32,15 @@ int main(int argc, char *argv[])
 }
 void *plusOne(void *arg)
 {
-    pthread_mutex_lock(&mutex);
     for(int i = 0; i < numIters; ++i, ++n)
         ;
     printf("%lld\n", n);
-    pthread_mutex_unlock(&mutex);
     return &n;
 }
 void *minusOne(void *arg)
 {
-    pthread_mutex_lock(&mutex);
     for(int i = 0; i < numIters; ++i, --n)
         ;
     printf("%lld\n", n);
-    pthread_mutex_unlock(&mutex);
     return &n;
 }
