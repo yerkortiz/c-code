@@ -16,9 +16,14 @@ unsigned int lookUpBitSet(int n)
 {
     return __builtin_popcount(n);
 }
-
+void bin(unsigned int n)
+{
+    if(n > 1)
+        bin(n >> 1);
+    printf("%d ", n & 1);
+}
 int main()
 {
-    printf("%u\n", lookUpBitSet(7));
+    bin(573);
     return 0;
 }
