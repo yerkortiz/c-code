@@ -72,7 +72,7 @@ void *savage (void *id) {
         pthread_mutex_unlock (&servings_mutex);
 
         meals--;
-
+/*
         pthread_mutex_lock (&print_mutex);
         printf ("Savage: %i is eating\n", savage_id);
         pthread_mutex_unlock (&print_mutex);
@@ -82,6 +82,7 @@ void *savage (void *id) {
         pthread_mutex_lock (&print_mutex);
         printf ("Savage: %i is DONE eating\n", savage_id);
         pthread_mutex_unlock (&print_mutex);
+        */
     }
 
     return NULL;

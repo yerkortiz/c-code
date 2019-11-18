@@ -24,6 +24,6 @@ void bin(unsigned int n)
 }
 int main()
 {
-    bin(573);
+    bin(83712);
     return 0;
 }
