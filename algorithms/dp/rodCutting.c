@@ -19,13 +19,13 @@ int naiveCutRod(int *p, int n) // EXPONENCIAL
         q = max(q, p[i]);
     return q;
 }
-int dpCutRod(int *p, int n)
+int dpCutRod(int *p, int n) // CUADRATICO
 {
     int i, q, j;
     int *r = malloc((n + 1) * sizeof(int));
     for(r[0] = 0, i = 1; i <= n; ++i) {
         for(q = -INF, j = 1; j <= i; ++j)
-            q = max(q, p[i] + r[j - i]);
+            q = max(q, p[j] + r[i - j]);
         r[j] = q;
     }
     return r[n];
