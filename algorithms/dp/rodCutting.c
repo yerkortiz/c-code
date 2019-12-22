@@ -34,9 +34,10 @@ int main(void)
 {
     int n, i;
     int *p = malloc(n * sizeof(int));
-    for(n = 10, i = 0; i < n; ++i)
+    for(n = 10, i = 0; i < n; ++i){
         scanf("%d", &p[i]);
-    printf("%d", dpCutRod(p, 8));
+        printf("%d\n", dpCutRod(p, i));
+    }
     free(p);
     EXIT_PROGRAM;
 }
