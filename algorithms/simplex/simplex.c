@@ -7,23 +7,6 @@
 #define MAIN_PROGRAM main
 #define EXIT_PROGRAM return 0
 
-void currentValue(int *c, int *x, int n)
-{
-    int value, i;
-    for(i = 0; i < n; ++i)
-        value += (x[i] * c[i]);
-    printf("Valor Función Objetivo %d\n", value);
-}
-void mtrxProd(int *A, int *B, int *product, int n, int m, int p)
-{
-    int i, j, k, sum = 0;
-    for (i = 0; i < n; ++i) 
-      for (j = 0; j < m; ++j) {
-        for (k = 0; k < p; ++k) sum = sum + A[i * n + k] * B[k * m + j];
-        product[j * m + k] = sum;
-        sum = 0;
-      }
-}
 int MAIN_PROGRAM(void)
 {
     int n, m, o, i, j;
