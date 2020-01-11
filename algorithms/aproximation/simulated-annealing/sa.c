@@ -1,7 +1,7 @@
 /*
  * Author: Yerko Ortiz
- * Input: initial temperature, minimun temperature, decrease temperature
- * Output:
+ * Input: temperatura inicial, temperatura minima, ratio de decrecimiento de temperatura
+ * Output: set de soluciones tras cada decremento de temperatura
 */
 #include <stdio.h>
 #include <math.h>
